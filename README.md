@@ -61,7 +61,7 @@ All four are US Government publications, in the public domain, and are in `pdfs/
 | `nist-ai-rmf-1.0.pdf` | [NIST AI 100-1, AI Risk Management Framework 1.0](https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf) | 48 | 177 |
 | `nist-csf-2.0.pdf` | [NIST CSWP 29, Cybersecurity Framework 2.0](https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf) | 32 | 112 |
 | `nist-sp-800-63b.pdf` | [NIST SP 800-63B, Digital Identity Guidelines](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf) | 80 | 329 |
-| `nasa-systems-engineering-handbook.pdf` | [NASA Systems Engineering Handbook, Rev 2](https://ntrs.nasa.gov/citations/20170001761) | 356 | 1328 |
+| `nasa-systems-engineering-handbook.pdf` | [NASA Systems Engineering Handbook, Rev 2](https://ntrs.nasa.gov/api/citations/20170001761/downloads/20170001761.pdf) | 356 | 1328 |
 
 ## Sample questions and expected citations
 
@@ -86,7 +86,7 @@ Questions the documents can't answer:
 | What is the best recipe for chocolate chip cookies? | `I don't know based on the provided documents.` | Relevance cutoff, so the LLM is never called |
 | What is the salary of a NASA astronaut? | `I don't know based on the provided documents.` | The LLM, because the question is near the corpus topic and passes the cutoff |
 
-Page numbers are the PDF's physical pages (what a PDF viewer shows), not the numbers printed on the paper. For example, physical page 25 of the AI RMF is printed as page 20.
+Page numbers are the PDF's physical pages (what a PDF viewer shows), not the numbers printed on the paper. For example, physical page 10 of the Cybersecurity Framework is printed as page 5.
 
 ## How "I don't know" works
 
