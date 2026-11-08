@@ -52,6 +52,41 @@ python test_rag.py                # self-check for chunking and citation logic
 
 Running `ingest.py` again rebuilds the index from scratch.
 
+## Examples
+
+### With an LLM
+
+These show the expected format. The facts and citations were checked against the PDFs, but they are not captured model output, and a model's wording will vary.
+
+```text
+> python ask.py "What are the six functions of the NIST Cybersecurity Framework 2.0?"
+The six CSF Core functions are Govern, Identify, Protect, Detect, Respond and Recover [nist-csf-2.0.pdf, p. 10].
+
+> python ask.py "Should verifiers require periodic password changes?"
+No. Verifiers should not require memorized secrets to be changed arbitrarily, such as periodically, but they must force a change if there is evidence the authenticator was compromised [nist-sp-800-63b.pdf, p. 25].
+
+> python ask.py "What is a Key Decision Point?"
+A Key Decision Point is the event at which the decision authority determines whether a program or project is ready to progress to the next phase of the life cycle, or to the next KDP [nasa-systems-engineering-handbook.pdf, p. 231].
+
+> python ask.py "What is the salary of a NASA astronaut?"
+I don't know based on the provided documents.
+```
+
+### Offline mock (actual output)
+
+With `LLM_PROVIDER=mock` the app quotes the start of the best-matching chunk instead of generating an answer. The output below is unedited.
+
+```text
+> python ask.py "What is a Key Decision Point?"
+(mock, no LLM) NASA Systems Engineering Handbook Rev 2 218 Term Definition/Context Iterative Application of a process to the same product or set of products to correct a discovered discrepancy or other variation from requirements. (See “recursive” and “repeatable.”) Key Decision Point The event at which the decisi... [nasa-systems-engineering-handbook.pdf, p. 231]
+
+> python ask.py "What are the six functions of the NIST Cybersecurity Framework 2.0?"
+(mock, no LLM) NIST CSWP 29 The NIST Cybersecurity Framework (CSF) 2.0 February 26, 2024 5 Fig. 2. CSF Functions The Functions should be addressed concurrently. Actions that support GOVERN, IDENTIFY, PROTECT, and DETECT should all happen continuously, and actions that support RESPOND and RECOVER should be ready at... [nist-csf-2.0.pdf, p. 10]
+
+> python ask.py "What is the best recipe for chocolate chip cookies?"
+I don't know based on the provided documents.
+```
+
 ## Sample PDFs
 
 All four are US Government publications, in the public domain, and are in `pdfs/`.
