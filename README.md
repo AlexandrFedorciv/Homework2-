@@ -21,8 +21,8 @@ question -> embedding -> top-k search -> relevance cutoff -> LLM -> citation che
 Needs Python 3.10 to 3.13 (tested on 3.13).
 
 ```powershell
-git clone <this-repo-url>
-cd <this-repo>
+git clone https://github.com/AlexandrFedorciv/Homework2-.git
+cd Homework2-
 python -m venv .venv
 .venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
