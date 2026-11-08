@@ -21,4 +21,12 @@ assert check_citations("Yes [b.pdf, p. 3].", HITS) == IDK
 assert check_citations("Confident claim with no citation.", HITS) == IDK
 assert check_citations(IDK, HITS) == IDK
 
+# Look-alike characters from real model output count as the required form.
+assert check_citations("Yes【a.pdf, p. 3】", HITS) == "Yes[a.pdf, p. 3]"
+assert check_citations("Yes [1, p. 3]", HITS) == IDK  # a source number is not a filename
+assert check_citations("Yes [​a.pdf, p. 3]", HITS) == "Yes [a.pdf, p. 3]"
+assert check_citations("Yes [ a.pdf, p. 3 ]", HITS) == "Yes [a.pdf, p. 3]"
+assert check_citations("Yes [ a . p d f , p. 3]", HITS) == "Yes [a.pdf, p. 3]"
+assert check_citations("Yes [ A .PDF, p. 3]", HITS) == "Yes [a.pdf, p. 3]"
+
 print("ok")

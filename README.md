@@ -56,17 +56,20 @@ Running `ingest.py` again rebuilds the index from scratch.
 
 ### With an LLM
 
-These show the expected format. The facts and citations were checked against the PDFs, but they are not captured model output, and a model's wording will vary.
+Actual, unedited output using `openai/gpt-oss-120b` on Groq. Wording varies between runs.
 
 ```text
 > python ask.py "What are the six functions of the NIST Cybersecurity Framework 2.0?"
-The six CSF Core functions are Govern, Identify, Protect, Detect, Respond and Recover [nist-csf-2.0.pdf, p. 10].
+The six Functions of the NIST Cybersecurity Framework 2.0 are GOVERN, IDENTIFY, PROTECT, DETECT, RESPOND, and RECOVER [nist-csf-2.0.pdf, p. 10].
 
 > python ask.py "Should verifiers require periodic password changes?"
-No. Verifiers should not require memorized secrets to be changed arbitrarily, such as periodically, but they must force a change if there is evidence the authenticator was compromised [nist-sp-800-63b.pdf, p. 25].
+No.  NIST SP 800-63B states that verifiers **SHOULD NOT require memorized secrets to be changed arbitrarily (e.g., periodically)**, although they **SHALL force a change** when there is evidence that the authenticator has been compromised [nist-sp-800-63b.pdf, p. 25].
 
-> python ask.py "What is a Key Decision Point?"
-A Key Decision Point is the event at which the decision authority determines whether a program or project is ready to progress to the next phase of the life cycle, or to the next KDP [nasa-systems-engineering-handbook.pdf, p. 231].
+> python ask.py "What is the minimum length of a memorized secret chosen by a subscriber?"
+The minimum length for a memorized secret that a subscriber chooses is at least 8 characters. [nist-sp-800-63b.pdf, p. 24]
+
+> python ask.py "Into which two major stages does NASA divide the project life cycle?"
+NASA divides the project life cycle into two major stages: **Formulation** and **Implementation**. [nasa-systems-engineering-handbook.pdf, p. 32]
 
 > python ask.py "What is the salary of a NASA astronaut?"
 I don't know based on the provided documents.
@@ -127,7 +130,7 @@ Page numbers are the PDF's physical pages (what a PDF viewer shows), not the num
 
 1. **Relevance cutoff.** Chunks with a cosine distance above 0.6 are dropped. If none remain, the app answers `I don't know` without calling the LLM. On this corpus, 8 answerable questions had a best distance of 0.22 to 0.45, and 7 clearly off-topic questions had 0.75 to 0.86.
 2. **Prompt.** The LLM may use only the supplied chunks and must reply with the exact `I don't know` sentence when they don't contain the answer. This handles near-topic questions, which measured 0.47 to 0.62 and can pass the cutoff.
-3. **Citation check.** Citations are compared with the retrieved chunks. A citation to a page that wasn't retrieved is replaced with a visible `[unverified: cited page was not retrieved]`. An answer with no real citation becomes `I don't know`.
+3. **Citation check.** Citations are compared with the retrieved chunks and always printed as `[filename, p. N]`, even if the model used look-alike brackets, invisible characters or extra spaces. A citation to a page that wasn't retrieved is replaced with a visible `[unverified: cited page was not retrieved]`. An answer with no real citation becomes `I don't know`.
 
 Text from PDFs is treated as untrusted: it is escaped, wrapped in `<source>` tags, and the LLM is told not to follow instructions found inside it.
 
